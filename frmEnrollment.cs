@@ -4,8 +4,10 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 
 namespace FaceTracking
@@ -128,14 +130,27 @@ namespace FaceTracking
             BtnCapture.Enabled = false;
             cboxGender.SelectedIndex = 0;
             dtDob.Value = DateTime.Now;
+            cmbDepartment.Items.Insert(0, "Select");
+            DataTable dt = new DbConcept().GetAllDepartments();
+            cmbDepartment.DisplayMember = "DepartmentCode";
+            cmbDepartment.ValueMember = "DepartmentId";
+            DataRow Drw;
+            Drw = dt.NewRow();
+            Drw.ItemArray = new object[] { 0, "-Select-" };
+            dt.Rows.InsertAt(Drw, 0);
+            cmbDepartment.DataSource = dt;
+            cmbDepartment.SelectedIndex = 0;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            Core.ClearTextBox( txtAddress, txtContact, txtFirstName, txtLastName, txtRollNo);
+            Core.ClearTextBox(txtAddress, txtContact, txtFirstName, txtLastName, txtRollNo);
             picBox.Image = null;
             cboxGender.SelectedIndex = 0;
-            dtDob.Value = DateTime.Now; 
+            cmbDepartment.SelectedIndex = 0;
+            dtDob.Value = DateTime.Now;
+            imageBoxFrameGrabber.Image = null;
+            imageBox1.Image = null;
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -180,6 +195,30 @@ namespace FaceTracking
         {
             try
             {
+
+                string[] StudentRollNumber = File.ReadAllLines(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
+
+                if(StudentRollNumber.Length > 0)
+                {
+                    
+                    foreach(string RollNo in StudentRollNumber)
+                    {
+                        string[] student = RollNo.Split('%');
+                        if(student.Length > 0)
+                        {
+                            foreach(string rNo in student)
+                            {
+                                if(rNo == txtRollNo.Text)
+                                {
+                                    MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
+                      MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 btnSubmit.Enabled = true;
                 ContTrain = ContTrain + 1;
                 gray = grabber.QueryGrayFrame().Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
@@ -262,6 +301,12 @@ namespace FaceTracking
                 txtLastName.Focus();
                 return false;
             }
+            if(cmbDepartment.SelectedIndex == 0)
+            {
+                MessageBox.Show("Please Select Department.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbDepartment.Focus();
+                return false;
+            }
             if (string.IsNullOrEmpty(txtContact.Text))
             {
                 MessageBox.Show("Please Enter Contact.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -296,51 +341,54 @@ namespace FaceTracking
             _photoByte = ImageToByte(picBox.Image);
             return true;
         }
-
         void FrameGrabber(object sender, EventArgs e)
-        {
-            if (grabber != null)
+        { 
+            NamePersons.Add("");
+            currentFrame = grabber?.QueryFrame()?.Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC); 
+            gray = currentFrame?.Convert<Gray, Byte>(); 
+            MCvAvgComp[][] facesDetected = gray?.DetectHaarCascade(
+          face,
+          1.2,
+          10,
+          Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
+          new Size(20, 20));
+            if (facesDetected != null)
             {
-                NamePersons.Add("");
-                currentFrame = grabber.QueryFrame()?.Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
-                gray = currentFrame?.Convert<Gray, Byte>();
-                MCvAvgComp[][] facesDetected = gray?.DetectHaarCascade(
-              face,
-              1.2,
-              10,
-              Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DEFAULT,
-              new Size(30, 30));
-                if (facesDetected != null)
+                foreach (MCvAvgComp f in facesDetected[0])
                 {
-                    foreach (MCvAvgComp f in facesDetected[0])
+                    t = t + 1;
+                    result = currentFrame.Copy(f.rect).Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+                    currentFrame.Draw(f.rect, new Bgr(Color.Red), 2);
+
+                    if (trainingImages.ToArray().Length != 0)
                     {
-                        t++;
-                        result = currentFrame.Copy(f.rect).Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
-                        currentFrame.Draw(f.rect, new Bgr(Color.Red), 2);
-                        if (trainingImages.ToArray().Length != 0)
-                        {
-                            MCvTermCriteria termCrit = new MCvTermCriteria(ContTrain, 0.001);
-                            EigenObjectRecognizer recognizer = new EigenObjectRecognizer(
-                               trainingImages.ToArray(),
-                               labels.ToArray(),
-                               3000,
-                               ref termCrit);
-                            name = recognizer.Recognize(result);
-                            currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.LightGreen));
-                        }
-                        NamePersons[t - 1] = name;
-                        NamePersons.Add("");
+                        MCvTermCriteria termCrit = new MCvTermCriteria(ContTrain, 0.001);
+                        EigenObjectRecognizer recognizer = new EigenObjectRecognizer(
+                           trainingImages.ToArray(),
+                           labels.ToArray(),
+                           3000,
+                           ref termCrit);
+
+                        name = recognizer.Recognize(result);
+                        currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.LightGreen));
+
                     }
-                    t = 0;
-                    for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
-                    {
-                        names = names + NamePersons[nnn] + ", ";
-                    }
-                    imageBoxFrameGrabber.Image = currentFrame; 
-                    names = "";
-                    NamePersons.Clear();
+
+                    NamePersons[t - 1] = name;
+                    NamePersons.Add("");
+                    //label3.Text = facesDetected[0].Length.ToString();
+
                 }
+                t = 0;
+                for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
+                {
+                    names = names + NamePersons[nnn] + ", ";
+                }
+                imageBoxFrameGrabber.Image = currentFrame; 
+                names = "";
+                NamePersons.Clear();
             }
         }
+
     }
 }

@@ -3,10 +3,6 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Net;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Data.Common;
 
 namespace FaceTracking
 {
@@ -146,22 +142,39 @@ namespace FaceTracking
 
         public bool CheckAttendance(string rollNumber)
         {
-            int iResult = 0;
+            int Result = 0;
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
-                string sqlQuery = "Select count(1) as Cnt from Attendance Where RollNo =@RollNo  and EntryDate = CAST(@Entrydate as DATE)";
+                string sqlQuery = "Select Count(1) as Cnt from (Select CAST(Entrydate as DATE) as EDate , * from Attendance ) as CM where CM.EDate ='" + DateTime.Now.Date.ToString("yyyy-MM-dd") + "' and Rollno ='" + rollNumber + "'";
                 SqlCommand cmd = new SqlCommand(sqlQuery, con);
                 con.Open();
-                cmd.Parameters.AddWithValue("@RollNo", rollNumber);
-                cmd.Parameters.AddWithValue("@EntryDate", DateTime.Now.Date.ToString("yyyy-MM-dd"));
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    iResult = (int) rdr["Cnt"];
+                    Result = int.Parse(rdr["Cnt"].ToString());
                 }
             }
-            return iResult > 0;
+            return Result > 0;
         }
+        //Select* from(Select CAST(Entrydate as DATE) as a , * from Attendance ) as c where c.a ='2022-09-26' and Rollno = 'MCA01'
+        //public bool CheckAttendance(string rollNumber)
+        //{
+        //    int iResult = 0;
+        //    using (SqlConnection con = new SqlConnection(_connectionString))
+        //    {
+        //        string sqlQuery = "Select count(1) as Cnt from Attendance Where RollNo =@RollNo  and EntryDate = CAST(@Entrydate as DATE)";
+        //        SqlCommand cmd = new SqlCommand(sqlQuery, con);
+        //        con.Open();
+        //        cmd.Parameters.AddWithValue("@RollNo", rollNumber);
+        //        cmd.Parameters.AddWithValue("@EntryDate", DateTime.Now.Date.ToString("yyyy-MM-dd"));
+        //        SqlDataReader rdr = cmd.ExecuteReader();
+        //        while (rdr.Read())
+        //        {
+        //            iResult = (int) rdr["Cnt"];
+        //        }
+        //    }
+        //    return iResult > 0;
+        //}
 
         public int UpdateEntrollment(int enrollmentId,string Rollno, string FirstName, string Lastname, int age, string Contact, string Address,
             string Gender, DateTime DOB, byte[] StudentPhoto)
@@ -219,6 +232,60 @@ namespace FaceTracking
                         sda.Fill(dt);
                         return dt;
                     }
+                }
+            }
+        }
+
+        public DataTable GetAllDepartments()
+        {
+            string query = "SELECT * FROM Department";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                using (SqlDataAdapter sda = new SqlDataAdapter(query, con))
+                {
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        public int NewDepartment(string DepartmentName,string DepartmentCode)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "INSERT INTO Department(DepartmentName,DepartmentCode) " +
+                     "VALUES(@DepartmentName,@DepartmentCode)";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@DepartmentName", DepartmentName);
+                    command.Parameters.AddWithValue("@DepartmentCode", DepartmentCode);
+                    int iResult = command.ExecuteNonQuery();
+                    connection.Close();
+                    return iResult;
+                }
+            }
+        }
+
+        public int UpdateDepartment(int DepartmentId,string DepartmentName, string DepartmentCode)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "Update Department Set DepartmentName=@DepartmentName,DepartmentCode=@DepartmentCode Where DepartmentId=@DepartmentCode";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@DepartmentCode", DepartmentId);
+                    command.Parameters.AddWithValue("@DepartmentName", DepartmentName);
+                    command.Parameters.AddWithValue("@DepartmentCode", DepartmentCode);
+                    int iResult = command.ExecuteNonQuery();
+                    connection.Close();
+                    return iResult;
                 }
             }
         }

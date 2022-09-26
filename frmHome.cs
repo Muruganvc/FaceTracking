@@ -38,7 +38,7 @@ namespace FaceTracking
             if (ActiveMdiChild != null)
                 ActiveMdiChild.Close();
 
-            frmAttendance attend = new frmAttendance();
+            FrmAttendanceEntry attend = new FrmAttendanceEntry();
             attend.MdiParent = this;
             attend.Show();
         }
@@ -51,6 +51,16 @@ namespace FaceTracking
             frmSample attend = new frmSample();
             attend.MdiParent = this;
             attend.Show();
+        }
+
+        private void departmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild != null)
+                ActiveMdiChild.Close();
+
+            FrmDepartment depart = new FrmDepartment();
+            depart.MdiParent = this;
+            depart.Show();
         }
     }
 }

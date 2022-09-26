@@ -39,7 +39,6 @@
             this.lblLastName = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.txtFirstName = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
             this.lblAddress = new System.Windows.Forms.Label();
@@ -51,6 +50,8 @@
             this.imageBoxFrameGrabber = new Emgu.CV.UI.ImageBox();
             this.BtnCapture = new System.Windows.Forms.Button();
             this.imageBox1 = new Emgu.CV.UI.ImageBox();
+            this.cmbDepartment = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
@@ -59,7 +60,7 @@
             // btnSubmit
             // 
             this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(534, 569);
+            this.btnSubmit.Location = new System.Drawing.Point(752, 634);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(150, 50);
             this.btnSubmit.TabIndex = 8;
@@ -71,7 +72,7 @@
             // 
             this.txtContact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtContact.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContact.Location = new System.Drawing.Point(673, 420);
+            this.txtContact.Location = new System.Drawing.Point(696, 475);
             this.txtContact.MaxLength = 10;
             this.txtContact.Name = "txtContact";
             this.txtContact.Size = new System.Drawing.Size(369, 37);
@@ -81,7 +82,7 @@
             // 
             this.txtRollNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRollNo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRollNo.Location = new System.Drawing.Point(141, 422);
+            this.txtRollNo.Location = new System.Drawing.Point(164, 422);
             this.txtRollNo.Name = "txtRollNo";
             this.txtRollNo.Size = new System.Drawing.Size(369, 37);
             this.txtRollNo.TabIndex = 0;
@@ -100,7 +101,7 @@
             // 
             this.lblGender.AutoSize = true;
             this.lblGender.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGender.Location = new System.Drawing.Point(24, 584);
+            this.lblGender.Location = new System.Drawing.Point(558, 434);
             this.lblGender.Name = "lblGender";
             this.lblGender.Size = new System.Drawing.Size(85, 30);
             this.lblGender.TabIndex = 17;
@@ -110,7 +111,7 @@
             // 
             this.txtLastName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLastName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLastName.Location = new System.Drawing.Point(141, 528);
+            this.txtLastName.Location = new System.Drawing.Point(164, 528);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(369, 37);
             this.txtLastName.TabIndex = 2;
@@ -119,7 +120,7 @@
             // 
             this.lblContact.AutoSize = true;
             this.lblContact.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContact.Location = new System.Drawing.Point(529, 427);
+            this.lblContact.Location = new System.Drawing.Point(552, 482);
             this.lblContact.Name = "lblContact";
             this.lblContact.Size = new System.Drawing.Size(87, 30);
             this.lblContact.TabIndex = 19;
@@ -139,7 +140,7 @@
             // 
             this.txtAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAddress.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAddress.Location = new System.Drawing.Point(673, 471);
+            this.txtAddress.Location = new System.Drawing.Point(696, 526);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(369, 37);
             this.txtAddress.TabIndex = 5;
@@ -148,19 +149,10 @@
             // 
             this.txtFirstName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFirstName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFirstName.Location = new System.Drawing.Point(141, 475);
+            this.txtFirstName.Location = new System.Drawing.Point(164, 475);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(369, 37);
             this.txtFirstName.TabIndex = 1;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(436, 450);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 30);
-            this.label5.TabIndex = 25;
             // 
             // lblFirstName
             // 
@@ -175,7 +167,7 @@
             // btnReset
             // 
             this.btnReset.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(700, 569);
+            this.btnReset.Location = new System.Drawing.Point(915, 634);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(150, 50);
             this.btnReset.TabIndex = 11;
@@ -187,7 +179,7 @@
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddress.Location = new System.Drawing.Point(529, 473);
+            this.lblAddress.Location = new System.Drawing.Point(552, 528);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(91, 30);
             this.lblAddress.TabIndex = 20;
@@ -197,7 +189,7 @@
             // 
             this.lblDateOfBirth.AutoSize = true;
             this.lblDateOfBirth.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateOfBirth.Location = new System.Drawing.Point(529, 525);
+            this.lblDateOfBirth.Location = new System.Drawing.Point(552, 580);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
             this.lblDateOfBirth.Size = new System.Drawing.Size(139, 30);
             this.lblDateOfBirth.TabIndex = 21;
@@ -207,7 +199,7 @@
             // 
             this.dtDob.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDob.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtDob.Location = new System.Drawing.Point(673, 525);
+            this.dtDob.Location = new System.Drawing.Point(696, 580);
             this.dtDob.Name = "dtDob";
             this.dtDob.Size = new System.Drawing.Size(369, 37);
             this.dtDob.TabIndex = 6;
@@ -221,7 +213,7 @@
             "-Select-",
             "Male",
             "Female"});
-            this.cboxGender.Location = new System.Drawing.Point(141, 581);
+            this.cboxGender.Location = new System.Drawing.Point(696, 431);
             this.cboxGender.Name = "cboxGender";
             this.cboxGender.Size = new System.Drawing.Size(369, 38);
             this.cboxGender.TabIndex = 3;
@@ -278,11 +270,37 @@
             this.imageBox1.TabIndex = 37;
             this.imageBox1.TabStop = false;
             // 
+            // cmbDepartment
+            // 
+            this.cmbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDepartment.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbDepartment.FormattingEnabled = true;
+            this.cmbDepartment.Items.AddRange(new object[] {
+            "-Select-",
+            "Male",
+            "Female"});
+            this.cmbDepartment.Location = new System.Drawing.Point(164, 577);
+            this.cmbDepartment.Name = "cmbDepartment";
+            this.cmbDepartment.Size = new System.Drawing.Size(369, 38);
+            this.cmbDepartment.TabIndex = 38;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(24, 580);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 30);
+            this.label1.TabIndex = 39;
+            this.label1.Text = "Department";
+            // 
             // frmEnrollment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1139, 682);
+            this.ClientSize = new System.Drawing.Size(1135, 703);
+            this.Controls.Add(this.cmbDepartment);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.imageBox1);
             this.Controls.Add(this.BtnCapture);
             this.Controls.Add(this.imageBoxFrameGrabber);
@@ -295,7 +313,6 @@
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.txtFirstName);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblFirstName);
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.lblContact);
@@ -330,7 +347,6 @@
         private System.Windows.Forms.Label lblLastName;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.TextBox txtFirstName;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblFirstName;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Label lblAddress;
@@ -342,5 +358,7 @@
         private Emgu.CV.UI.ImageBox imageBoxFrameGrabber;
         private System.Windows.Forms.Button BtnCapture;
         private Emgu.CV.UI.ImageBox imageBox1;
+        private System.Windows.Forms.ComboBox cmbDepartment;
+        private System.Windows.Forms.Label label1;
     }
 }

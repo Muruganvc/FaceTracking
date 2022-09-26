@@ -34,6 +34,13 @@
             this.newEnrollementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.attendanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sampleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.departmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.departmentToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.enrollmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.attendanceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,10 +49,11 @@
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1089, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(1089, 36);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -53,6 +61,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
+            this.departmentToolStripMenuItem,
             this.newEnrollementToolStripMenuItem,
             this.attendanceToolStripMenuItem,
             this.sampleToolStripMenuItem});
@@ -86,6 +95,53 @@
             this.sampleToolStripMenuItem.Text = "Sample";
             this.sampleToolStripMenuItem.Click += new System.EventHandler(this.sampleToolStripMenuItem_Click);
             // 
+            // departmentToolStripMenuItem
+            // 
+            this.departmentToolStripMenuItem.Name = "departmentToolStripMenuItem";
+            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.departmentToolStripMenuItem.Text = "Department";
+            this.departmentToolStripMenuItem.Click += new System.EventHandler(this.departmentToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.departmentToolStripMenuItem1,
+            this.enrollmentToolStripMenuItem,
+            this.attendanceToolStripMenuItem1,
+            this.toolStripMenuItem3});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(58, 32);
+            this.viewToolStripMenuItem.Text = "Edit";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(267, 6);
+            // 
+            // departmentToolStripMenuItem1
+            // 
+            this.departmentToolStripMenuItem1.Name = "departmentToolStripMenuItem1";
+            this.departmentToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.departmentToolStripMenuItem1.Text = "Department";
+            // 
+            // enrollmentToolStripMenuItem
+            // 
+            this.enrollmentToolStripMenuItem.Name = "enrollmentToolStripMenuItem";
+            this.enrollmentToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.enrollmentToolStripMenuItem.Text = "Enrollment";
+            // 
+            // attendanceToolStripMenuItem1
+            // 
+            this.attendanceToolStripMenuItem1.Name = "attendanceToolStripMenuItem1";
+            this.attendanceToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.attendanceToolStripMenuItem1.Text = "Attendance";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(267, 6);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -114,5 +170,12 @@
         private System.Windows.Forms.ToolStripMenuItem newEnrollementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem attendanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sampleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem departmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem departmentToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem enrollmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem attendanceToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
     }
 }
