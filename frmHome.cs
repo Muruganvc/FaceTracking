@@ -77,5 +77,25 @@ namespace FaceTracking
             enroll.MdiParent = this;
             enroll.Show();
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            departmentToolStripMenuItem_Click(sender, e);
+        }
+
+        private void newEnrollmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            newEnrollmentsToolStripMenuItem_Click(sender, e);
+        }
+
+        private void viewEnrollmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            viewEnrollmentsToolStripMenuItem_Click(sender, e);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            attendanceToolStripMenuItem_Click(sender, e);
+        }
     }
 }

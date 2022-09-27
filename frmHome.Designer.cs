@@ -43,23 +43,24 @@
             this.attendanceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewEditDeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.newEnrollmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewEnrollmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.newEnrollmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewEnrollmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
@@ -171,32 +172,22 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 33);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(44, 626);
+            this.toolStrip1.Size = new System.Drawing.Size(48, 626);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem4,
-            this.newToolStripMenuItem,
-            this.viewEditDeleteToolStripMenuItem,
-            this.toolStripMenuItem5});
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(39, 28);
-            this.toolStripButton1.Text = "Department";
-            this.toolStripButton1.ToolTipText = "Click here to new Department";
             // 
             // toolStripButton2
             // 
             this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem4,
+            this.newEnrollmentToolStripMenuItem,
+            this.viewEnrollmentToolStripMenuItem,
+            this.toolStripMenuItem5});
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(39, 28);
+            this.toolStripButton2.Size = new System.Drawing.Size(43, 28);
             this.toolStripButton2.Text = "Enrollment";
             this.toolStripButton2.ToolTipText = "Click here to new Enrollment";
             // 
@@ -206,31 +197,10 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(39, 28);
+            this.toolStripButton3.Size = new System.Drawing.Size(43, 28);
             this.toolStripButton3.Text = "Attendance";
             this.toolStripButton3.ToolTipText = "Click here to new Attendance";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(267, 6);
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.newToolStripMenuItem.Text = "New";
-            // 
-            // viewEditDeleteToolStripMenuItem
-            // 
-            this.viewEditDeleteToolStripMenuItem.Name = "viewEditDeleteToolStripMenuItem";
-            this.viewEditDeleteToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.viewEditDeleteToolStripMenuItem.Text = "View / Edit / Delete";
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(267, 6);
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStripMenuItem6
             // 
@@ -255,6 +225,41 @@
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
             this.toolStripMenuItem7.Size = new System.Drawing.Size(267, 6);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(43, 28);
+            this.toolStripButton1.Text = "Department";
+            this.toolStripButton1.ToolTipText = "Click here to new Department";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(267, 6);
+            // 
+            // newEnrollmentToolStripMenuItem
+            // 
+            this.newEnrollmentToolStripMenuItem.Name = "newEnrollmentToolStripMenuItem";
+            this.newEnrollmentToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.newEnrollmentToolStripMenuItem.Text = "New Enrollment";
+            this.newEnrollmentToolStripMenuItem.Click += new System.EventHandler(this.newEnrollmentToolStripMenuItem_Click);
+            // 
+            // viewEnrollmentToolStripMenuItem
+            // 
+            this.viewEnrollmentToolStripMenuItem.Name = "viewEnrollmentToolStripMenuItem";
+            this.viewEnrollmentToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.viewEnrollmentToolStripMenuItem.Text = "View Enrollment";
+            this.viewEnrollmentToolStripMenuItem.Click += new System.EventHandler(this.viewEnrollmentToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(267, 6);
             // 
             // frmHome
             // 
@@ -295,16 +300,16 @@
         private System.Windows.Forms.ToolStripMenuItem attendanceToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewEditDeleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton3;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem newEnrollmentsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewEnrollmentsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem newEnrollmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewEnrollmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
     }
 }

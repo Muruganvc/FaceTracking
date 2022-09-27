@@ -55,11 +55,17 @@ namespace FaceTracking
                 }
                 DbConcept db = new DbConcept();
                 UserDto user = db.Login(txtUserName.Text, Core.Encrypt(txtPassword.Text));
-                if (user != null)
+                if (user.UserId > 0)
                 {
                     frmHome home = new frmHome();
                     this.Hide();
                     home.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid User Name / Password.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtUserName.Focus();
+                    return;
                 }
             }
             catch (Exception ex)
