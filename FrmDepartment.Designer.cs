@@ -34,6 +34,13 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.LblCode = new System.Windows.Forms.Label();
+            this.dgvDepartment = new System.Windows.Forms.DataGridView();
+            this.DepartmentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DepartmentCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DepartmentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).BeginInit();
             this.SuspendLayout();
             // 
             // TxtDepartmentName
@@ -42,7 +49,7 @@
             this.TxtDepartmentName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtDepartmentName.Location = new System.Drawing.Point(226, 56);
             this.TxtDepartmentName.Name = "TxtDepartmentName";
-            this.TxtDepartmentName.Size = new System.Drawing.Size(369, 37);
+            this.TxtDepartmentName.Size = new System.Drawing.Size(403, 37);
             this.TxtDepartmentName.TabIndex = 17;
             // 
             // LblDepartmentName
@@ -61,23 +68,24 @@
             this.TxtDepartmentCode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtDepartmentCode.Location = new System.Drawing.Point(226, 109);
             this.TxtDepartmentCode.Name = "TxtDepartmentCode";
-            this.TxtDepartmentCode.Size = new System.Drawing.Size(369, 37);
+            this.TxtDepartmentCode.Size = new System.Drawing.Size(403, 37);
             this.TxtDepartmentCode.TabIndex = 18;
             // 
             // btnReset
             // 
             this.btnReset.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(295, 162);
+            this.btnReset.Location = new System.Drawing.Point(479, 162);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(150, 44);
             this.btnReset.TabIndex = 22;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnSubmit
             // 
             this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(129, 162);
+            this.btnSubmit.Location = new System.Drawing.Point(323, 162);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(150, 44);
             this.btnSubmit.TabIndex = 21;
@@ -95,11 +103,81 @@
             this.LblCode.TabIndex = 23;
             this.LblCode.Text = "Department Code";
             // 
+            // dgvDepartment
+            // 
+            this.dgvDepartment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDepartment.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DepartmentId,
+            this.DepartmentCode,
+            this.DepartmentName,
+            this.Edit,
+            this.Delete});
+            this.dgvDepartment.Location = new System.Drawing.Point(17, 262);
+            this.dgvDepartment.Name = "dgvDepartment";
+            this.dgvDepartment.RowHeadersWidth = 62;
+            this.dgvDepartment.RowTemplate.Height = 28;
+            this.dgvDepartment.Size = new System.Drawing.Size(612, 339);
+            this.dgvDepartment.TabIndex = 24;
+            this.dgvDepartment.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDepartment_CellContentClick);
+            // 
+            // DepartmentId
+            // 
+            this.DepartmentId.DataPropertyName = "DepartmentId";
+            this.DepartmentId.HeaderText = "Department Id";
+            this.DepartmentId.MinimumWidth = 8;
+            this.DepartmentId.Name = "DepartmentId";
+            this.DepartmentId.ReadOnly = true;
+            this.DepartmentId.Visible = false;
+            this.DepartmentId.Width = 150;
+            // 
+            // DepartmentCode
+            // 
+            this.DepartmentCode.DataPropertyName = "DepartmentCode";
+            this.DepartmentCode.HeaderText = "Department Code";
+            this.DepartmentCode.MinimumWidth = 8;
+            this.DepartmentCode.Name = "DepartmentCode";
+            this.DepartmentCode.ReadOnly = true;
+            this.DepartmentCode.Width = 150;
+            // 
+            // DepartmentName
+            // 
+            this.DepartmentName.DataPropertyName = "DepartmentName";
+            this.DepartmentName.HeaderText = "Department Name";
+            this.DepartmentName.MinimumWidth = 8;
+            this.DepartmentName.Name = "DepartmentName";
+            this.DepartmentName.ReadOnly = true;
+            this.DepartmentName.Width = 150;
+            // 
+            // Edit
+            // 
+            this.Edit.HeaderText = "Edit";
+            this.Edit.MinimumWidth = 8;
+            this.Edit.Name = "Edit";
+            this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Edit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Edit.Text = "Edit";
+            this.Edit.ToolTipText = "Click here to Edit";
+            this.Edit.UseColumnTextForButtonValue = true;
+            this.Edit.Width = 150;
+            // 
+            // Delete
+            // 
+            this.Delete.HeaderText = "Delete";
+            this.Delete.MinimumWidth = 8;
+            this.Delete.Name = "Delete";
+            this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Delete.Text = "Delete";
+            this.Delete.ToolTipText = "Click here to Delete";
+            this.Delete.UseColumnTextForButtonValue = true;
+            this.Delete.Width = 150;
+            // 
             // FrmDepartment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 227);
+            this.ClientSize = new System.Drawing.Size(641, 623);
+            this.Controls.Add(this.dgvDepartment);
             this.Controls.Add(this.LblCode);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnSubmit);
@@ -111,6 +189,8 @@
             this.Name = "FrmDepartment";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Department";
+            this.Load += new System.EventHandler(this.FrmDepartment_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDepartment)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +204,11 @@
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label LblCode;
+        private System.Windows.Forms.DataGridView dgvDepartment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentName;
+        private System.Windows.Forms.DataGridViewButtonColumn Edit;
+        private System.Windows.Forms.DataGridViewButtonColumn Delete;
     }
 }

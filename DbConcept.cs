@@ -275,14 +275,30 @@ namespace FaceTracking
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "Update Department Set DepartmentName=@DepartmentName,DepartmentCode=@DepartmentCode Where DepartmentId=@DepartmentCode";
+                string query = "Update Department Set DepartmentName=@DepartmentName,DepartmentCode=@DepartmentCode Where DepartmentId=@DepartmentId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     connection.Open();
-                    command.Parameters.AddWithValue("@DepartmentCode", DepartmentId);
+                    command.Parameters.AddWithValue("@DepartmentId", DepartmentId);
                     command.Parameters.AddWithValue("@DepartmentName", DepartmentName);
                     command.Parameters.AddWithValue("@DepartmentCode", DepartmentCode);
+                    int iResult = command.ExecuteNonQuery();
+                    connection.Close();
+                    return iResult;
+                }
+            }
+        }
+
+        public int DeleteDepartment(int DepartmentId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = " Delete from Department Where DepartmentId=@DepartmentCode ";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@DepartmentCode", DepartmentId);
                     int iResult = command.ExecuteNonQuery();
                     connection.Close();
                     return iResult;

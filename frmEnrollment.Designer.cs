@@ -52,15 +52,17 @@
             this.imageBox1 = new Emgu.CV.UI.ImageBox();
             this.cmbDepartment = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSubmit
             // 
             this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(752, 634);
+            this.btnSubmit.Location = new System.Drawing.Point(671, 615);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(150, 50);
             this.btnSubmit.TabIndex = 8;
@@ -72,10 +74,10 @@
             // 
             this.txtContact.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtContact.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContact.Location = new System.Drawing.Point(696, 475);
+            this.txtContact.Location = new System.Drawing.Point(671, 467);
             this.txtContact.MaxLength = 10;
             this.txtContact.Name = "txtContact";
-            this.txtContact.Size = new System.Drawing.Size(369, 37);
+            this.txtContact.Size = new System.Drawing.Size(322, 37);
             this.txtContact.TabIndex = 4;
             // 
             // txtRollNo
@@ -84,7 +86,7 @@
             this.txtRollNo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRollNo.Location = new System.Drawing.Point(164, 422);
             this.txtRollNo.Name = "txtRollNo";
-            this.txtRollNo.Size = new System.Drawing.Size(369, 37);
+            this.txtRollNo.Size = new System.Drawing.Size(345, 37);
             this.txtRollNo.TabIndex = 0;
             // 
             // lblRollNo
@@ -101,7 +103,7 @@
             // 
             this.lblGender.AutoSize = true;
             this.lblGender.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGender.Location = new System.Drawing.Point(558, 434);
+            this.lblGender.Location = new System.Drawing.Point(521, 431);
             this.lblGender.Name = "lblGender";
             this.lblGender.Size = new System.Drawing.Size(85, 30);
             this.lblGender.TabIndex = 17;
@@ -113,14 +115,14 @@
             this.txtLastName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLastName.Location = new System.Drawing.Point(164, 528);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(369, 37);
+            this.txtLastName.Size = new System.Drawing.Size(345, 37);
             this.txtLastName.TabIndex = 2;
             // 
             // lblContact
             // 
             this.lblContact.AutoSize = true;
             this.lblContact.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContact.Location = new System.Drawing.Point(552, 482);
+            this.lblContact.Location = new System.Drawing.Point(515, 479);
             this.lblContact.Name = "lblContact";
             this.lblContact.Size = new System.Drawing.Size(87, 30);
             this.lblContact.TabIndex = 19;
@@ -140,9 +142,9 @@
             // 
             this.txtAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAddress.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAddress.Location = new System.Drawing.Point(696, 526);
+            this.txtAddress.Location = new System.Drawing.Point(671, 518);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(369, 37);
+            this.txtAddress.Size = new System.Drawing.Size(322, 37);
             this.txtAddress.TabIndex = 5;
             // 
             // txtFirstName
@@ -151,7 +153,7 @@
             this.txtFirstName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFirstName.Location = new System.Drawing.Point(164, 475);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(369, 37);
+            this.txtFirstName.Size = new System.Drawing.Size(345, 37);
             this.txtFirstName.TabIndex = 1;
             // 
             // lblFirstName
@@ -167,7 +169,7 @@
             // btnReset
             // 
             this.btnReset.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(915, 634);
+            this.btnReset.Location = new System.Drawing.Point(847, 615);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(150, 50);
             this.btnReset.TabIndex = 11;
@@ -179,7 +181,7 @@
             // 
             this.lblAddress.AutoSize = true;
             this.lblAddress.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddress.Location = new System.Drawing.Point(552, 528);
+            this.lblAddress.Location = new System.Drawing.Point(515, 525);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(91, 30);
             this.lblAddress.TabIndex = 20;
@@ -189,7 +191,7 @@
             // 
             this.lblDateOfBirth.AutoSize = true;
             this.lblDateOfBirth.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateOfBirth.Location = new System.Drawing.Point(552, 580);
+            this.lblDateOfBirth.Location = new System.Drawing.Point(515, 577);
             this.lblDateOfBirth.Name = "lblDateOfBirth";
             this.lblDateOfBirth.Size = new System.Drawing.Size(139, 30);
             this.lblDateOfBirth.TabIndex = 21;
@@ -199,9 +201,9 @@
             // 
             this.dtDob.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtDob.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtDob.Location = new System.Drawing.Point(696, 580);
+            this.dtDob.Location = new System.Drawing.Point(671, 572);
             this.dtDob.Name = "dtDob";
-            this.dtDob.Size = new System.Drawing.Size(369, 37);
+            this.dtDob.Size = new System.Drawing.Size(322, 37);
             this.dtDob.TabIndex = 6;
             // 
             // cboxGender
@@ -213,17 +215,17 @@
             "-Select-",
             "Male",
             "Female"});
-            this.cboxGender.Location = new System.Drawing.Point(696, 431);
+            this.cboxGender.Location = new System.Drawing.Point(671, 423);
             this.cboxGender.Name = "cboxGender";
-            this.cboxGender.Size = new System.Drawing.Size(369, 38);
+            this.cboxGender.Size = new System.Drawing.Size(322, 38);
             this.cboxGender.TabIndex = 3;
             // 
             // picBox
             // 
             this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox.Location = new System.Drawing.Point(375, 12);
+            this.picBox.Location = new System.Drawing.Point(339, 12);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(362, 343);
+            this.picBox.Size = new System.Drawing.Size(326, 319);
             this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBox.TabIndex = 34;
             this.picBox.TabStop = false;
@@ -231,9 +233,9 @@
             // btnBrowse
             // 
             this.btnBrowse.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBrowse.Location = new System.Drawing.Point(29, 358);
+            this.btnBrowse.Location = new System.Drawing.Point(29, 337);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(340, 50);
+            this.btnBrowse.Size = new System.Drawing.Size(304, 50);
             this.btnBrowse.TabIndex = 13;
             this.btnBrowse.Text = "Start";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -244,7 +246,7 @@
             this.imageBoxFrameGrabber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.imageBoxFrameGrabber.Location = new System.Drawing.Point(29, 12);
             this.imageBoxFrameGrabber.Name = "imageBoxFrameGrabber";
-            this.imageBoxFrameGrabber.Size = new System.Drawing.Size(340, 340);
+            this.imageBoxFrameGrabber.Size = new System.Drawing.Size(304, 316);
             this.imageBoxFrameGrabber.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imageBoxFrameGrabber.TabIndex = 35;
             this.imageBoxFrameGrabber.TabStop = false;
@@ -252,9 +254,9 @@
             // BtnCapture
             // 
             this.BtnCapture.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnCapture.Location = new System.Drawing.Point(377, 361);
+            this.BtnCapture.Location = new System.Drawing.Point(339, 337);
             this.BtnCapture.Name = "BtnCapture";
-            this.BtnCapture.Size = new System.Drawing.Size(360, 50);
+            this.BtnCapture.Size = new System.Drawing.Size(326, 50);
             this.BtnCapture.TabIndex = 36;
             this.BtnCapture.Text = "Capture";
             this.BtnCapture.UseVisualStyleBackColor = true;
@@ -263,9 +265,9 @@
             // imageBox1
             // 
             this.imageBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imageBox1.Location = new System.Drawing.Point(752, 15);
+            this.imageBox1.Location = new System.Drawing.Point(671, 15);
             this.imageBox1.Name = "imageBox1";
-            this.imageBox1.Size = new System.Drawing.Size(362, 340);
+            this.imageBox1.Size = new System.Drawing.Size(326, 316);
             this.imageBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imageBox1.TabIndex = 37;
             this.imageBox1.TabStop = false;
@@ -281,7 +283,7 @@
             "Female"});
             this.cmbDepartment.Location = new System.Drawing.Point(164, 577);
             this.cmbDepartment.Name = "cmbDepartment";
-            this.cmbDepartment.Size = new System.Drawing.Size(369, 38);
+            this.cmbDepartment.Size = new System.Drawing.Size(345, 38);
             this.cmbDepartment.TabIndex = 38;
             // 
             // label1
@@ -294,11 +296,22 @@
             this.label1.TabIndex = 39;
             this.label1.Text = "Department";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 682);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.RowTemplate.Height = 28;
+            this.dataGridView1.Size = new System.Drawing.Size(981, 207);
+            this.dataGridView1.TabIndex = 40;
+            // 
             // frmEnrollment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1135, 703);
+            this.ClientSize = new System.Drawing.Size(1008, 901);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cmbDepartment);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.imageBox1);
@@ -331,6 +344,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,5 +374,6 @@
         private Emgu.CV.UI.ImageBox imageBox1;
         private System.Windows.Forms.ComboBox cmbDepartment;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

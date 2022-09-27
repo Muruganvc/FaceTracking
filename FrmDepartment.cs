@@ -15,6 +15,7 @@ namespace FaceTracking
         public FrmDepartment()
         {
             InitializeComponent();
+            btnReset.PerformClick();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -31,16 +32,94 @@ namespace FaceTracking
                 TxtDepartmentCode.Focus();
                 return;
             }
-            int iResult = new DbConcept().NewDepartment(TxtDepartmentName.Text, TxtDepartmentCode.Text);
-            if (iResult > 0)
+            int iResult = 0;
+            if (btnSubmit.Text == "Save")
             {
-                MessageBox.Show("Department details Successfully Saved.", "Tracking", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-                btnReset.PerformClick();
+                iResult = new DbConcept().NewDepartment(TxtDepartmentName.Text, TxtDepartmentCode.Text);
+                if (iResult > 0)
+                {
+                    MessageBox.Show("Department details Successfully Saved.", "Tracking", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Department details Not Saved.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
+            else if (btnSubmit.Text == "Update")
             {
-                MessageBox.Show("Department details Not Saved.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                iResult = new DbConcept().UpdateDepartment(Convert.ToInt32(this.Tag), TxtDepartmentName.Text, TxtDepartmentCode.Text);
+                if (iResult > 0)
+                {
+                    MessageBox.Show("Department details Successfully Updated.", "Tracking", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Department details Not Updated.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else if (btnSubmit.Text == "Delete")
+            {
+                DialogResult dialog = MessageBox.Show("Do you want to delete.?","Tracking",MessageBoxButtons.YesNo, MessageBoxIcon.Question);  
+                if(dialog == DialogResult.Yes)
+                {
+                    iResult = new DbConcept().DeleteDepartment(Convert.ToInt32(this.Tag));
+                    if (iResult > 0)
+                    {
+                        MessageBox.Show("Department details Successfully Deleted.", "Tracking", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Department details Not Deleted.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            LoadGrid();
+            btnReset_Click(sender, e);
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            Core.ClearTextBox(TxtDepartmentCode, TxtDepartmentName);
+            btnSubmit.Text = "Save";
+            this.Tag = null;
+        }
+
+        void LoadGrid()
+        {
+            DataTable dt = new DbConcept().GetAllDepartments();
+            dgvDepartment = Core.Grid(dgvDepartment, dt);
+        }
+
+        private void FrmDepartment_Load(object sender, EventArgs e)
+        {
+
+            LoadGrid();
+        }
+
+        private void dgvDepartment_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var x = (DataGridView)sender;
+            if (x.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                if (e.ColumnIndex == 3)
+                {
+                    DataGridViewRow row = this.dgvDepartment.Rows[e.RowIndex];
+                    TxtDepartmentCode.Text = row.Cells["DepartmentCode"].Value.ToString();
+                    TxtDepartmentName.Text = row.Cells["DepartmentName"].Value.ToString();
+                    this.Tag = row.Cells["DepartmentId"].Value.ToString();
+                    btnSubmit.Text = "Update";
+                }
+                if (e.ColumnIndex == 4)
+                {
+                    DataGridViewRow row = this.dgvDepartment.Rows[e.RowIndex];
+                    TxtDepartmentCode.Text = row.Cells["DepartmentCode"].Value.ToString();
+                    TxtDepartmentName.Text = row.Cells["DepartmentName"].Value.ToString();
+                    this.Tag = row.Cells["DepartmentId"].Value.ToString();
+                    btnSubmit.Text = "Delete";
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ namespace FaceTracking
                 ActiveMdiChild.Close();
 
             frmEnrollment enroll = new frmEnrollment();
+            enroll.Size = new Size(1030, 957);
             enroll.MdiParent = this;
             enroll.Show();
         }
