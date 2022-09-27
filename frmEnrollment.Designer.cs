@@ -52,11 +52,9 @@
             this.imageBox1 = new Emgu.CV.UI.ImageBox();
             this.cmbDepartment = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSubmit
@@ -296,22 +294,11 @@
             this.label1.TabIndex = 39;
             this.label1.Text = "Department";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 682);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(981, 207);
-            this.dataGridView1.TabIndex = 40;
-            // 
             // frmEnrollment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 901);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(1027, 680);
             this.Controls.Add(this.cmbDepartment);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.imageBox1);
@@ -344,7 +331,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,6 +360,5 @@
         private Emgu.CV.UI.ImageBox imageBox1;
         private System.Windows.Forms.ComboBox cmbDepartment;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

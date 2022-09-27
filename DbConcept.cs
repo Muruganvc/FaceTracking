@@ -52,6 +52,7 @@ namespace FaceTracking
             }
         }
 
+
         public StudetnDto FindStudent(string StudetnRollNumber)
         {
             StudetnDto student = new StudetnDto();
@@ -222,7 +223,7 @@ namespace FaceTracking
 
         public DataTable GetAllEnrollment()
         {
-            string query = "SELECT * FROM ENTROLLMENT";
+            string query = "Select depart.DepartmentCode,depart.DepartmentId,enr.Entrollmentid, enr.Rollno,enr.FirstName,enr.Lastname,\r\nenr.Address  , enr.Age,enr.Contact,enr.DOB,enr.Age,enr.StudentPhoto,enr.Gender from  Department depart \r\ninner join Entrollment enr\r\non depart.DepartmentId = enr.DepartmentId";
             using (SqlConnection con = new SqlConnection(_connectionString))
             {
                 using (SqlDataAdapter sda = new SqlDataAdapter(query, con))

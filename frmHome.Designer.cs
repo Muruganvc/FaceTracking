@@ -50,13 +50,16 @@
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewEditDeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.newEnrollmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewEnrollmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
@@ -93,9 +96,14 @@
             // 
             // newEnrollementToolStripMenuItem
             // 
+            this.newEnrollementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem6,
+            this.newEnrollmentsToolStripMenuItem,
+            this.viewEnrollmentsToolStripMenuItem,
+            this.toolStripMenuItem7});
             this.newEnrollementToolStripMenuItem.Name = "newEnrollementToolStripMenuItem";
             this.newEnrollementToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.newEnrollementToolStripMenuItem.Text = "New Enrollement";
+            this.newEnrollementToolStripMenuItem.Text = "Enrollement";
             this.newEnrollementToolStripMenuItem.Click += new System.EventHandler(this.newEnrollementToolStripMenuItem_Click);
             // 
             // attendanceToolStripMenuItem
@@ -224,6 +232,30 @@
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(267, 6);
             // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(267, 6);
+            // 
+            // newEnrollmentsToolStripMenuItem
+            // 
+            this.newEnrollmentsToolStripMenuItem.Name = "newEnrollmentsToolStripMenuItem";
+            this.newEnrollmentsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.newEnrollmentsToolStripMenuItem.Text = "New Enrollments";
+            this.newEnrollmentsToolStripMenuItem.Click += new System.EventHandler(this.newEnrollmentsToolStripMenuItem_Click);
+            // 
+            // viewEnrollmentsToolStripMenuItem
+            // 
+            this.viewEnrollmentsToolStripMenuItem.Name = "viewEnrollmentsToolStripMenuItem";
+            this.viewEnrollmentsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.viewEnrollmentsToolStripMenuItem.Text = "View Enrollments";
+            this.viewEnrollmentsToolStripMenuItem.Click += new System.EventHandler(this.viewEnrollmentsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(267, 6);
+            // 
             // frmHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -270,5 +302,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
         private System.Windows.Forms.ToolStripDropDownButton toolStripButton3;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem newEnrollmentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewEnrollmentsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
     }
 }

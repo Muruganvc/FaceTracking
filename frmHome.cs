@@ -25,13 +25,7 @@ namespace FaceTracking
 
         private void newEnrollementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ActiveMdiChild != null)
-                ActiveMdiChild.Close();
-
-            frmEnrollment enroll = new frmEnrollment();
-            enroll.Size = new Size(1030, 957);
-            enroll.MdiParent = this;
-            enroll.Show();
+            
         }
 
         private void attendanceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,6 +56,26 @@ namespace FaceTracking
             FrmDepartment depart = new FrmDepartment();
             depart.MdiParent = this;
             depart.Show();
+        }
+
+        private void newEnrollmentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild != null)
+                ActiveMdiChild.Close();
+
+            frmEnrollment enroll = new frmEnrollment();
+            enroll.MdiParent = this;
+            enroll.Show();
+        }
+
+        private void viewEnrollmentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild != null)
+                ActiveMdiChild.Close();
+
+            EnrollmentView enroll = new EnrollmentView();
+            enroll.MdiParent = this;
+            enroll.Show();
         }
     }
 }
