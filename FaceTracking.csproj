@@ -96,6 +96,12 @@
     <Compile Include="FrmAttendanceEntry.Designer.cs">
       <DependentUpon>FrmAttendanceEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAttendanceView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAttendanceView.Designer.cs">
+      <DependentUpon>FrmAttendanceView.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmDepartment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAttendanceEntry.resx">
       <DependentUpon>FrmAttendanceEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAttendanceView.resx">
+      <DependentUpon>FrmAttendanceView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmDepartment.resx">
       <DependentUpon>FrmDepartment.cs</DependentUpon>

@@ -1,13 +1,7 @@
-﻿using Emgu.CV.UI;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -76,7 +70,9 @@ namespace FaceTracking
                     txtLastName.Text = row.Cells["LastName"].Value.ToString();
                     txtRollNo.Text = row.Cells["RollNo"].Value.ToString();
                     dtDob.Text = row.Cells["Dob"].Value.ToString();
-                    int index = cmbDepartment.Items.IndexOf(row.Cells["Department"].Value.ToString());
+                    string departmentName = row.Cells["Department"].Value.ToString();
+                    cmbDepartment.SelectedIndex = cmbDepartment.FindString(departmentName);
+
                     byte[] imageBtye = (byte[])dgvEnrollment.CurrentRow.Cells["StudentPhoto"].Value;
                     string Gender = row.Cells["Gender"].Value.ToString();
                     if(Gender == "Male")
@@ -107,6 +103,8 @@ namespace FaceTracking
                         {
                             MessageBox.Show("Enrollment details Not Deleted.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+                        btnReset.PerformClick();
+                        LoadGrid();
                     }
                 }
             }
@@ -204,7 +202,7 @@ namespace FaceTracking
                 DbConcept db = new DbConcept();
                 int Age = AgeCalculate(Convert.ToDateTime(dtDob.Text));
                 int iResult = db.UpdateEntrollment( Convert.ToInt32(this.Tag), txtRollNo.Text, txtFirstName.Text,
-                    txtLastName.Text, Age, txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte);
+                    txtLastName.Text, Age, txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte, Convert.ToInt32(cmbDepartment.SelectedValue));
                 if (iResult > 0)
                 {
                     MessageBox.Show("Enrollment Successfully Updated.", "Tracking", MessageBoxButtons.OK,

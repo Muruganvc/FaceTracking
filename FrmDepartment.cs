@@ -59,23 +59,6 @@ namespace FaceTracking
                     MessageBox.Show("Department details Not Updated.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else if (btnSubmit.Text == "Delete")
-            {
-                DialogResult dialog = MessageBox.Show("Do you want to delete.?","Tracking",MessageBoxButtons.YesNo, MessageBoxIcon.Question);  
-                if(dialog == DialogResult.Yes)
-                {
-                    iResult = new DbConcept().DeleteDepartment(Convert.ToInt32(this.Tag));
-                    if (iResult > 0)
-                    {
-                        MessageBox.Show("Department details Successfully Deleted.", "Tracking", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Department details Not Deleted.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-            }
             LoadGrid();
             btnReset_Click(sender, e);
         }
@@ -104,9 +87,10 @@ namespace FaceTracking
             var x = (DataGridView)sender;
             if (x.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
             {
+                DataGridViewRow row = this.dgvDepartment.Rows[e.RowIndex];
                 if (e.ColumnIndex == 3)
                 {
-                    DataGridViewRow row = this.dgvDepartment.Rows[e.RowIndex];
+                    
                     TxtDepartmentCode.Text = row.Cells["DepartmentCode"].Value.ToString();
                     TxtDepartmentName.Text = row.Cells["DepartmentName"].Value.ToString();
                     this.Tag = row.Cells["DepartmentId"].Value.ToString();
@@ -114,11 +98,23 @@ namespace FaceTracking
                 }
                 if (e.ColumnIndex == 4)
                 {
-                    DataGridViewRow row = this.dgvDepartment.Rows[e.RowIndex];
-                    TxtDepartmentCode.Text = row.Cells["DepartmentCode"].Value.ToString();
-                    TxtDepartmentName.Text = row.Cells["DepartmentName"].Value.ToString();
                     this.Tag = row.Cells["DepartmentId"].Value.ToString();
-                    btnSubmit.Text = "Delete";
+                    DialogResult dialog = MessageBox.Show("Do you want to delete.?", "Tracking", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        int iResult = new DbConcept().DeleteDepartment(Convert.ToInt32(this.Tag));
+                        if (iResult > 0)
+                        {
+                            MessageBox.Show("Department details Successfully Deleted.", "Tracking", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Department details Not Deleted.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        btnReset.PerformClick();
+                        LoadGrid();
+                    }
                 }
             }
         }

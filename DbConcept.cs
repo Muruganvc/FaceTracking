@@ -97,17 +97,18 @@ namespace FaceTracking
         }
 
         public int NewEntrollment(string Rollno, string FirstName, string Lastname, int age, string Contact, string Address,
-            string Gender, DateTime DOB, byte[] StudentPhoto)
+            string Gender, DateTime DOB, byte[] StudentPhoto, int DepartmentId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO Entrollment(Rollno,FirstName,Lastname,Age,Contact,Address,Gender,DOB,StudentPhoto) " +
-                     "VALUES(@Rollno,@FirstName,@Lastname,@Age,@Contact,@Address,@Gender,@DOB,@StudentPhoto)";
+                string query = "INSERT INTO Entrollment(Rollno,FirstName,Lastname,Age,Contact,Address,Gender,DOB,StudentPhoto,DepartmentId) " +
+                     "VALUES(@Rollno,@FirstName,@Lastname,@Age,@Contact,@Address,@Gender,@DOB,@StudentPhoto,@DepartmentId)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     connection.Open();
                     command.Parameters.AddWithValue("@Rollno", Rollno);
+                    command.Parameters.AddWithValue("@DepartmentId", DepartmentId);
                     command.Parameters.AddWithValue("@FirstName", FirstName);
                     command.Parameters.AddWithValue("@Lastname", Lastname);
                     command.Parameters.AddWithValue("@Age", age);
@@ -178,18 +179,19 @@ namespace FaceTracking
         //}
 
         public int UpdateEntrollment(int enrollmentId,string Rollno, string FirstName, string Lastname, int age, string Contact, string Address,
-            string Gender, DateTime DOB, byte[] StudentPhoto)
+            string Gender, DateTime DOB, byte[] StudentPhoto,int DepartmentId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "Update Entrollment Set Rollno=@Rollno,FirstName=@FirstName,Lastname=@Lastname,Age=@Age,Contact=@Contact," +
-                    "Address=@Address,Gender=@Gender,DOB=@DOB,StudentPhoto=@StudentPhoto Where Entrollmentid =@Entrollmentid ";
+                    "Address=@Address,Gender=@Gender,DOB=@DOB,StudentPhoto=@StudentPhoto,DepartmentId=@DepartmentId Where Entrollmentid =@Entrollmentid ";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     connection.Open();
                     command.Parameters.AddWithValue("@Entrollmentid", enrollmentId);
                     command.Parameters.AddWithValue("@Rollno", Rollno);
+                    command.Parameters.AddWithValue("@DepartmentId", DepartmentId);
                     command.Parameters.AddWithValue("@FirstName", FirstName);
                     command.Parameters.AddWithValue("@Lastname", Lastname);
                     command.Parameters.AddWithValue("@Age", age);

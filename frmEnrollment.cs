@@ -80,7 +80,7 @@ namespace FaceTracking
                 DbConcept db = new DbConcept();
                 int Age = AgeCalculate(Convert.ToDateTime(dtDob.Text));
                 int iResult = db.NewEntrollment(txtRollNo.Text, txtFirstName.Text,
-                    txtLastName.Text, Age, txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte);
+                    txtLastName.Text, Age, txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte, Convert.ToInt32(cmbDepartment.SelectedValue) );
                 if (iResult > 0)
                 {
                     MessageBox.Show("New Enrollment Successfully Created.", "Tracking", MessageBoxButtons.OK,
@@ -114,25 +114,32 @@ namespace FaceTracking
                 return;
             }
 
-            string[] StudentRollNumber = File.ReadAllLines(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
-            if (StudentRollNumber.Length > 0)
+            if (File.Exists(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt"))
             {
-                foreach (string RollNo in StudentRollNumber)
+                string[] StudentRollNumber = File.ReadAllLines(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
+                if (StudentRollNumber.Length > 0)
                 {
-                    string[] student = RollNo.Split('%');
-                    if (student.Length > 0)
+                    foreach (string RollNo in StudentRollNumber)
                     {
-                        foreach (string rNo in student)
+                        string[] student = RollNo.Split('%');
+                        if (student.Length > 0)
                         {
-                            if (rNo == txtRollNo.Text)
+                            foreach (string rNo in student)
                             {
-                                MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
-                  MessageBoxIcon.Information);
-                                return;
+                                if (rNo == txtRollNo.Text)
+                                {
+                                    MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
+                      MessageBoxIcon.Information);
+                                    return;
+                                }
                             }
                         }
                     }
                 }
+            }
+            else
+            {
+                File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt",String.Empty);
             }
             BtnCapture.Enabled = true;
             grabber = new Capture();
@@ -195,7 +202,7 @@ namespace FaceTracking
 
                 DbConcept db = new DbConcept();
                 int iResult = db.UpdateEntrollment(Convert.ToInt32(this.Tag), txtRollNo.Text, txtFirstName.Text,
-                    txtLastName.Text, Convert.ToInt32(0), txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte);
+                    txtLastName.Text, Convert.ToInt32(0), txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte, Convert.ToInt32(cmbDepartment.SelectedValue));
                 if (iResult > 0)
                 {
                     MessageBox.Show("Enrollment Successfully Updated.", "Tracking", MessageBoxButtons.OK,
@@ -218,28 +225,28 @@ namespace FaceTracking
             try
             {
 
-                string[] StudentRollNumber = File.ReadAllLines(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
+                //string[] StudentRollNumber = File.ReadAllLines(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
 
-                if (StudentRollNumber.Length > 0)
-                {
+                //if (StudentRollNumber.Length > 0)
+                //{
 
-                    foreach (string RollNo in StudentRollNumber)
-                    {
-                        string[] student = RollNo.Split('%');
-                        if (student.Length > 0)
-                        {
-                            foreach (string rNo in student)
-                            {
-                                if (rNo == txtRollNo.Text)
-                                {
-                                    MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
-                      MessageBoxIcon.Information);
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
+                //    foreach (string RollNo in StudentRollNumber)
+                //    {
+                //        string[] student = RollNo.Split('%');
+                //        if (student.Length > 0)
+                //        {
+                //            foreach (string rNo in student)
+                //            {
+                //                if (rNo == txtRollNo.Text)
+                //                {
+                //                    MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
+                //      MessageBoxIcon.Information);
+                //                    return;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
 
                 btnSubmit.Enabled = true;
                 ContTrain = ContTrain + 1;
