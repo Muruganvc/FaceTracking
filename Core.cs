@@ -5,13 +5,25 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FaceTracking
 {
-    public class Core
+    public static class Core
     {
+        public static IEnumerable<DateTime> Range(this DateTime startDate, DateTime endDate)
+        {
+            return Enumerable.Range(0, (int)(endDate - startDate).TotalDays + 1)
+                             .Select(i => startDate.AddDays(i));
+        }
+        public  static List<DateTime> GetDatesBetween(DateTime startDate, DateTime endDate)
+        {
+            List<DateTime> allDates = new List<DateTime>();
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+                allDates.Add(date);
+            return allDates;
+
+        }
         public static string Encrypt(string clearText)
         {
             string encryptionKey = "MAKV2SPBNI99212";
@@ -64,7 +76,7 @@ namespace FaceTracking
             }
         }
 
-        public static DataGridView Grid(DataGridView dgv, DataTable value)
+        public static DataGridView Grid<T>(DataGridView dgv, T value)
         {
             dgv.ClearSelection();
             dgv.AutoGenerateColumns = false;

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Reflection.Emit;
 using System.Windows.Forms;
 
 namespace FaceTracking
@@ -30,8 +29,6 @@ namespace FaceTracking
         int ContTrain, NumLabels, t;
         string name, names = null;
         #endregion
-
-
         public frmEnrollment()
         {
             InitializeComponent();
@@ -40,19 +37,23 @@ namespace FaceTracking
             {
                 string Labelsinfo = File.ReadAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
                 string[] Labels = Labelsinfo.Split('%');
-                NumLabels = Convert.ToInt16(Labels[0]);
-                ContTrain = NumLabels;
-                string LoadFaces;
-                for (int tf = 1; tf < NumLabels + 1; tf++)
+                if (Labels.Length > 1)
                 {
-                    LoadFaces = "face" + tf + ".bmp";
-                    trainingImages.Add(new Image<Gray, byte>(Application.StartupPath + "/TrainedFaces/" + LoadFaces));
-                    labels.Add(Labels[tf]);
+                    NumLabels = Convert.ToInt16(Labels[0]);
+                    ContTrain = NumLabels;
+                    string LoadFaces;
+
+                    for (int tf = 1; tf < NumLabels + 1; tf++)
+                    {
+                        LoadFaces = "face" + tf + ".bmp";
+                        trainingImages.Add(new Image<Gray, byte>(Application.StartupPath + "/TrainedFaces/" + LoadFaces));
+                        labels.Add(Labels[tf]);
+                    }
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Nothing in binary database, please add at least a face(Simply train the prototype with the Add Face Button).", "Triained faces load", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(e.Message, "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private byte[] ImageToByte(Image img)
@@ -80,12 +81,11 @@ namespace FaceTracking
                 DbConcept db = new DbConcept();
                 int Age = AgeCalculate(Convert.ToDateTime(dtDob.Text));
                 int iResult = db.NewEntrollment(txtRollNo.Text, txtFirstName.Text,
-                    txtLastName.Text, Age, txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte, Convert.ToInt32(cmbDepartment.SelectedValue) );
+                    txtLastName.Text, Age, txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte, Convert.ToInt32(cmbDepartment.SelectedValue));
                 if (iResult > 0)
                 {
                     MessageBox.Show("New Enrollment Successfully Created.", "Tracking", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-                    btnReset.PerformClick();
                 }
                 else
                 {
@@ -96,6 +96,7 @@ namespace FaceTracking
             {
                 MessageBox.Show(ex.Message, "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            btnReset.PerformClick();
         }
         private int AgeCalculate(DateTime anniversaire)
         {
@@ -113,22 +114,23 @@ namespace FaceTracking
                 txtRollNo.Focus();
                 return;
             }
-
-            if (File.Exists(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt"))
+            var student = new DbConcept().FindStudent(txtRollNo.Text);
+            if (string.IsNullOrEmpty(student.RollNo))
             {
+
                 string[] StudentRollNumber = File.ReadAllLines(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
                 if (StudentRollNumber.Length > 0)
                 {
                     foreach (string RollNo in StudentRollNumber)
                     {
-                        string[] student = RollNo.Split('%');
-                        if (student.Length > 0)
+                        string[] studentNames = RollNo.Split('%');
+                        if (studentNames.Length > 0)
                         {
-                            foreach (string rNo in student)
+                            foreach (string rNo in studentNames)
                             {
                                 if (rNo == txtRollNo.Text)
                                 {
-                                    MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
+                                    _ = MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
                       MessageBoxIcon.Information);
                                     return;
                                 }
@@ -136,20 +138,18 @@ namespace FaceTracking
                         }
                     }
                 }
+
+                BtnCapture.Enabled = true;
+                grabber = new Capture();
+                grabber.QueryFrame();
+                Application.Idle += new EventHandler(FrameGrabber);
+                btnBrowse.Enabled = false;
             }
             else
             {
-                File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt",String.Empty);
+                _ = MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
+                         MessageBoxIcon.Information);
             }
-            BtnCapture.Enabled = true;
-            grabber = new Capture();
-            grabber.QueryFrame();
-            Application.Idle += new EventHandler(FrameGrabber);
-            btnBrowse.Enabled = false;
-        }
-        private void FinalFrame_NewFrame(object sender, NewFrameEventArgs eventArgs)
-        {
-            picBox.Image = (Bitmap)eventArgs.Frame.Clone();
         }
         private void frmEnrollment_Load(object sender, EventArgs e)
         {
@@ -171,6 +171,14 @@ namespace FaceTracking
             cmbDepartment.SelectedIndex = 0;
         }
 
+        private void frmEnrollment_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (grabber != null){
+                grabber.Dispose();
+                grabber = null;
+            }
+        }
+
         private void btnReset_Click(object sender, EventArgs e)
         {
             Core.ClearTextBox(txtAddress, txtContact, txtFirstName, txtLastName, txtRollNo);
@@ -180,92 +188,34 @@ namespace FaceTracking
             dtDob.Value = DateTime.Now;
             imageBoxFrameGrabber.Image = null;
             imageBox1.Image = null;
+            btnSubmit.Enabled = false;
+            BtnCapture.Enabled = false;
+            btnBrowse.Enabled = true;
         }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!Validation())
-                {
-                    return;
-                }
-                string Gender = string.Empty;
-                if (cboxGender.SelectedIndex == 1)
-                {
-                    Gender = "Male";
-                }
-                else if (cboxGender.SelectedIndex == 2)
-                {
-                    Gender = "Female";
-                }
-
-                DbConcept db = new DbConcept();
-                int iResult = db.UpdateEntrollment(Convert.ToInt32(this.Tag), txtRollNo.Text, txtFirstName.Text,
-                    txtLastName.Text, Convert.ToInt32(0), txtContact.Text, txtAddress.Text, Gender, Convert.ToDateTime(dtDob.Text), _photoByte, Convert.ToInt32(cmbDepartment.SelectedValue));
-                if (iResult > 0)
-                {
-                    MessageBox.Show("Enrollment Successfully Updated.", "Tracking", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    btnReset.PerformClick();
-                }
-                else
-                {
-                    MessageBox.Show("Enrollment Not Updated.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void BtnCapture_Click(object sender, EventArgs e)
         {
             try
             {
-
-                //string[] StudentRollNumber = File.ReadAllLines(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt");
-
-                //if (StudentRollNumber.Length > 0)
-                //{
-
-                //    foreach (string RollNo in StudentRollNumber)
-                //    {
-                //        string[] student = RollNo.Split('%');
-                //        if (student.Length > 0)
-                //        {
-                //            foreach (string rNo in student)
-                //            {
-                //                if (rNo == txtRollNo.Text)
-                //                {
-                //                    MessageBox.Show("You have already Registered.", "Tracking", MessageBoxButtons.OK,
-                //      MessageBoxIcon.Information);
-                //                    return;
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
                 btnSubmit.Enabled = true;
                 ContTrain = ContTrain + 1;
                 gray = grabber.QueryGrayFrame().Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
                 MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(
-                face, 1.2, 10,
-                Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.FIND_BIGGEST_OBJECT, new Size(30, 30));
-
+                face,
+                1.2,
+                10,
+                Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
+                new Size(20, 20));
                 foreach (MCvAvgComp f in facesDetected[0])
                 {
                     TrainedFace = currentFrame.Copy(f.rect).Convert<Gray, byte>();
                     break;
                 }
-                TrainedFace = result?.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
-                trainingImages?.Add(TrainedFace);
-                labels?.Add(txtRollNo.Text);
+                TrainedFace = result.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+                trainingImages.Add(TrainedFace);
+                labels.Add(txtRollNo.Text);
+
+                picBox.Image = TrainedFace.ToBitmap();
                 imageBox1.Image = TrainedFace;
-                picBox.Image = currentFrame.ToBitmap();
-                picBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
                 File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", trainingImages.ToArray().Length.ToString() + "%");
                 for (int i = 1; i < trainingImages.ToArray().Length + 1; i++)
@@ -273,43 +223,16 @@ namespace FaceTracking
                     trainingImages.ToArray()[i - 1].Save(Application.StartupPath + "/TrainedFaces/face" + i + ".bmp");
                     File.AppendAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", labels.ToArray()[i - 1] + "%");
                 }
-                MessageBox.Show(txtRollNo.Text + "´s face detected and added :)", "Training OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 grabber.Dispose();
+                grabber = null;
             }
             catch
             {
-                MessageBox.Show("Enable the face detection first", "Training Fail", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 grabber.Dispose();
+                grabber = null;
+                MessageBox.Show("Enable the face detection first", "Training Fail", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("Do you want Delete?.", "Tracking", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DbConcept db = new DbConcept();
-                int iResult = db.DeleteEntrollment(Convert.ToInt32(this.Tag));
-                if (iResult > 0)
-                {
-                    MessageBox.Show("Enrollment Successfully Deleted.", "Tracking", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    btnReset.PerformClick();
-                }
-                else
-                {
-                    MessageBox.Show("Enrollment Not Deleted.", "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
-
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            btnReset_Click(sender, e);
-            btnSubmit.Enabled = true;
-            btnBrowse.Text = "Start";
-        }
-
         private bool Validation()
         {
             if (string.IsNullOrEmpty(txtRollNo.Text))
@@ -372,23 +295,22 @@ namespace FaceTracking
         }
         void FrameGrabber(object sender, EventArgs e)
         {
-            NamePersons.Add("");
-            currentFrame = grabber?.QueryFrame()?.Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
-            gray = currentFrame?.Convert<Gray, Byte>();
-            MCvAvgComp[][] facesDetected = gray?.DetectHaarCascade(
-          face,
-          1.2,
-          10,
-          Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
-          new Size(20, 20));
-            if (facesDetected != null)
+            if (grabber != null)
             {
+                NamePersons.Add("");
+                currentFrame = grabber.QueryFrame().Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+                gray = currentFrame.Convert<Gray, Byte>();
+                MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(
+              face,
+              1.2,
+              10,
+              Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
+              new Size(20, 20));
                 foreach (MCvAvgComp f in facesDetected[0])
                 {
                     t = t + 1;
                     result = currentFrame.Copy(f.rect).Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
                     currentFrame.Draw(f.rect, new Bgr(Color.Red), 2);
-
                     if (trainingImages.ToArray().Length != 0)
                     {
                         MCvTermCriteria termCrit = new MCvTermCriteria(ContTrain, 0.001);
@@ -397,16 +319,12 @@ namespace FaceTracking
                            labels.ToArray(),
                            3000,
                            ref termCrit);
-
                         name = recognizer.Recognize(result);
+                        name = String.Empty;
                         currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.LightGreen));
-
                     }
-
                     NamePersons[t - 1] = name;
                     NamePersons.Add("");
-                    //label3.Text = facesDetected[0].Length.ToString();
-
                 }
                 t = 0;
                 for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
@@ -418,6 +336,5 @@ namespace FaceTracking
                 NamePersons.Clear();
             }
         }
-
     }
 }

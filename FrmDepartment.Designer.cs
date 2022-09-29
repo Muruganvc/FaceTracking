@@ -67,6 +67,7 @@
             this.TxtDepartmentCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TxtDepartmentCode.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtDepartmentCode.Location = new System.Drawing.Point(226, 109);
+            this.TxtDepartmentCode.MaxLength = 5;
             this.TxtDepartmentCode.Name = "TxtDepartmentCode";
             this.TxtDepartmentCode.Size = new System.Drawing.Size(403, 37);
             this.TxtDepartmentCode.TabIndex = 18;

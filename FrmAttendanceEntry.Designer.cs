@@ -165,6 +165,8 @@
             this.Name = "FrmAttendanceEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Attendance Entry";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAttendanceEntry_FormClosing);
+            this.Load += new System.EventHandler(this.FrmAttendanceEntry_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imageBoxFrameGrabber)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);

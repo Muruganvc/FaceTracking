@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -52,7 +53,6 @@ namespace FaceTracking
             }
         }
 
-
         public StudetnDto FindStudent(string StudetnRollNumber)
         {
             StudetnDto student = new StudetnDto();
@@ -73,6 +73,7 @@ namespace FaceTracking
                     student.Gender = rdr["Gender"].ToString();
                     student.Photo = (byte[]) rdr["StudentPhoto"];
                     student.Dob = DateTime.Parse(rdr["DOB"].ToString());
+                    student.RollNo = rdr["rollno"].ToString();
                 }
                 return student;
             }
@@ -124,17 +125,19 @@ namespace FaceTracking
             }
         }
 
-        public int NewAttendance(string rollNumber)
+        public int NewAttendance(string rollNumber, bool isFlag,int userId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO Attendance(Rollno) " +
-                     "VALUES(@Rollno)";
+                string query = "INSERT INTO Attendance(Rollno,Flag,UserId) " +
+                     "VALUES(@Rollno,@Flag,@UserId)";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     connection.Open();
                     command.Parameters.AddWithValue("@Rollno", rollNumber);
+                    command.Parameters.AddWithValue("@Flag", isFlag);
+                    command.Parameters.AddWithValue("@UserId", userId);
                     int iResult = command.ExecuteNonQuery();
                     connection.Close();
                     return iResult;
@@ -158,25 +161,6 @@ namespace FaceTracking
             }
             return Result > 0;
         }
-        //Select* from(Select CAST(Entrydate as DATE) as a , * from Attendance ) as c where c.a ='2022-09-26' and Rollno = 'MCA01'
-        //public bool CheckAttendance(string rollNumber)
-        //{
-        //    int iResult = 0;
-        //    using (SqlConnection con = new SqlConnection(_connectionString))
-        //    {
-        //        string sqlQuery = "Select count(1) as Cnt from Attendance Where RollNo =@RollNo  and EntryDate = CAST(@Entrydate as DATE)";
-        //        SqlCommand cmd = new SqlCommand(sqlQuery, con);
-        //        con.Open();
-        //        cmd.Parameters.AddWithValue("@RollNo", rollNumber);
-        //        cmd.Parameters.AddWithValue("@EntryDate", DateTime.Now.Date.ToString("yyyy-MM-dd"));
-        //        SqlDataReader rdr = cmd.ExecuteReader();
-        //        while (rdr.Read())
-        //        {
-        //            iResult = (int) rdr["Cnt"];
-        //        }
-        //    }
-        //    return iResult > 0;
-        //}
 
         public int UpdateEntrollment(int enrollmentId,string Rollno, string FirstName, string Lastname, int age, string Contact, string Address,
             string Gender, DateTime DOB, byte[] StudentPhoto,int DepartmentId)
@@ -206,7 +190,6 @@ namespace FaceTracking
                 }
             }
         }
-
         public int DeleteEntrollment(int enrollmentId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -236,6 +219,31 @@ namespace FaceTracking
                         return dt;
                     }
                 }
+            }
+        }
+
+        public List<AttendanceDto> GetAttendance()
+        {
+            string query = "Select enr.Rollno,enr.FirstName,enr.Lastname,depart.DepartmentCode , att.EntryDate,\r\nCASE WHEN Flag =0 THEN 'Absence'\r\n               ELSE 'Presence' END AS Flag\r\n   from Department as depart\r\ninner join Entrollment as enr\r\non depart.DepartmentId = enr.DepartmentId\r\ninner join  [Attendance] as att\r\non enr.Rollno = att.Rollno order by enr.rollno";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                List<AttendanceDto> attendances = new List<AttendanceDto>();
+                while (rdr.Read())
+                {
+                    AttendanceDto result = new AttendanceDto();
+                    result.RollNumber = rdr["Rollno"].ToString();
+                    result.FirstName = rdr["FirstName"].ToString();
+                    result.LastName = rdr["LastName"].ToString();
+                    result.Type = rdr["Flag"].ToString();
+                    result.DepartmentCode = rdr["DepartmentCode"].ToString();
+                    result.EntryDate = Convert.ToDateTime(rdr["EntryDate"].ToString());
+                    attendances.Add(result);
+                }
+                return attendances;
             }
         }
 
@@ -305,6 +313,20 @@ namespace FaceTracking
                     int iResult = command.ExecuteNonQuery();
                     connection.Close();
                     return iResult;
+                }
+            }
+        }
+
+        public void UpdateAttendance()
+        {
+            DataTable allStudent = GetAllEnrollment();
+            for (int i = 0; i <= allStudent.Rows.Count - 1; i++)
+            {
+                string rollNumber = allStudent.Rows[i]["Rollno"].ToString();
+                bool isAttendance = CheckAttendance(rollNumber);
+                if (!isAttendance)
+                {
+                    NewAttendance(rollNumber, false, 0);
                 }
             }
         }

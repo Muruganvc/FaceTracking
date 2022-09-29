@@ -33,6 +33,11 @@ namespace FaceTracking
             btnBrowse.Enabled = false;
         }
 
+        private void FrmAttendanceEntry_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             grabber.Dispose();
@@ -40,7 +45,7 @@ namespace FaceTracking
             if (!check)
             {
                 DbConcept db = new DbConcept();
-                int iResult = db.NewAttendance(txtRollNo.Text);
+                int iResult = db.NewAttendance(txtRollNo.Text,true, _userId);
                 if (iResult > 0)
                 {
                     MessageBox.Show("Attendance Successfully Saved.", "Tracking", MessageBoxButtons.OK,
@@ -62,6 +67,15 @@ namespace FaceTracking
             imageBoxFrameGrabber.Image = null;
             btnBrowse.Enabled = true;
             txtRollNo.Text = String.Empty;
+        }
+
+        private void FrmAttendanceEntry_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (grabber != null)
+            {
+                grabber.Dispose();
+                grabber = null;
+            }
         }
 
         void FrameGrabber(object sender, EventArgs e)
@@ -135,9 +149,10 @@ namespace FaceTracking
                 NamePersons.Clear();
             }
         }
-
-        public FrmAttendanceEntry()
+        private readonly int _userId;
+        public FrmAttendanceEntry(int userId)
         {
+            _userId = userId;
             InitializeComponent();
              face = new HaarCascade("haarcascade_frontalface_default.xml");
             try

@@ -3,7 +3,6 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FaceTracking
 {
@@ -24,6 +23,9 @@ namespace FaceTracking
 
         private void EnrollmentView_Load(object sender, EventArgs e)
         {
+            BtnBrowse.Enabled = false;
+            btnSubmit.Enabled = false;
+            btnSubmit.Text = "Update";
             LoadGrid();
             DataTable dt = new DbConcept().GetAllDepartments();
             cmbDepartment.DisplayMember = "DepartmentCode";
@@ -86,6 +88,8 @@ namespace FaceTracking
                     MemoryStream ms = new MemoryStream(imageBtye);
                     picBox.Image = new Bitmap(ms);
                     btnSubmit.Text = "Update";
+                    BtnBrowse.Enabled = true;
+                    btnSubmit.Enabled = true;
                 }
                 if (e.ColumnIndex == 14)
                 {
@@ -225,6 +229,7 @@ namespace FaceTracking
         private void BtnBrowse_Click(object sender, EventArgs e)
         {
             _photoByte = GetImage();
+            
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -235,6 +240,9 @@ namespace FaceTracking
             cmbDepartment.SelectedIndex = 0;
             dtDob.Value = DateTime.Now;
             this.Tag = null;
+            dgvEnrollment.ClearSelection();
+            BtnBrowse.Enabled = false;
+            btnSubmit.Enabled = false;
         }
     }
 }

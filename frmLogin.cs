@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
 namespace FaceTracking
 {
     public partial class frmLogin : Form
@@ -17,26 +9,20 @@ namespace FaceTracking
         {
             InitializeComponent();
         }
-
-        private string connectionString = ConfigurationManager.AppSettings["connectionString"];
-
         private void lnkForgetpassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmForgetPassword fPassword = new frmForgetPassword();
             fPassword.ShowDialog();
         }
-
         private void lnkNewUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             frmNewUser newUser = new frmNewUser();
             newUser.ShowDialog();
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Core.ClearTextBox(txtUserName, txtPassword);
         }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
@@ -57,7 +43,11 @@ namespace FaceTracking
                 UserDto user = db.Login(txtUserName.Text, Core.Encrypt(txtPassword.Text));
                 if (user.UserId > 0)
                 {
-                    frmHome home = new frmHome();
+                    if (!File.Exists(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt"))
+                    {
+                        File.WriteAllText(Application.StartupPath + "/TrainedFaces/TrainedLabels.txt", String.Empty);
+                    }
+                    frmHome home = new frmHome(user.UserId,user.UserName);
                     this.Hide();
                     home.ShowDialog();
                 }
@@ -72,7 +62,6 @@ namespace FaceTracking
             {
                 MessageBox.Show(ex.Message, "Tracking", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
     }
 }

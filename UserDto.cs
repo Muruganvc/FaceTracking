@@ -24,4 +24,15 @@ namespace FaceTracking
         public int Age { get; set; }
         public byte[] Photo { get; set; }
     }
+
+
+    public class AttendanceDto
+    {
+        public string  RollNumber { get; set; }
+        public string  FirstName { get; set; }
+        public string LastName { get; set; }
+        public string  DepartmentCode { get; set; }
+        public DateTime EntryDate { get; set; }
+        public string Type { set; get; }
+    }
 }
